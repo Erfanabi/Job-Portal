@@ -1,9 +1,26 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
-export const AppContextProvider = (props) => {
-  const value = {};
+export default function AppContextProvider(props) {
+  const [searchFilter, setSearchFilter] = useState({
+    title: "",
+    location: "",
+  });
+  const [isSearches, setIsSearch] = useState(false);
 
-  return <AppContext.Provider>{props.children}</AppContext.Provider>;
-};
+  const value = {
+    searchFilter,
+    setSearchFilter,
+    isSearches,
+    setIsSearch,
+  };
+
+  return (
+    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+  );
+}
+
+// To use context in your components:
+// import { useContext } from "react";
+// const { searchFilter, setSearchFilter, ... } = useContext(AppContext);
