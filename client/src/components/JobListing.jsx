@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { assets, JobCategories, JobLocations } from "../assets/assets";
+import JobCard from "./JobCard";
 
 function JobListing() {
-  const { isSearches, searchFilter, setSearchFilter } = useContext(AppContext);
+  const { isSearches, searchFilter, setSearchFilter, jobs } =
+    useContext(AppContext);
 
   return (
     <div className="container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8">
@@ -72,7 +74,11 @@ function JobListing() {
           Latest jobs
         </h3>
         <p className="mb-8">Get your desired job from top companies</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          {jobs.map((job, index) => (
+            <JobCard job={job} key={index} />
+          ))}
+        </div>
       </section>
     </div>
   );
