@@ -21,8 +21,6 @@ function Hero() {
     });
   };
 
-  console.log("ok");
-
   return (
     <div className="container 2xl:px-20 mx-auto my-10">
       <div className="bg-gradient-to-r text-white from-purple-800 to-purple-950 py-16 text-center mx-2 rounded-xl">

@@ -1,7 +1,10 @@
 import React from "react";
 import { assets } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
 
 function JobCard({ job }) {
+  const navigate = useNavigate();
+
   return (
     <div className="border p-6 shadow rounded">
       <div className="flex items-center justify-between">
@@ -25,10 +28,22 @@ function JobCard({ job }) {
       ></p>
 
       <div className="mt-4 flex text-sm gap-4">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+          onClick={() => {
+            navigate(`/apply-job/${job._id}`);
+            scrollTo(0, 0);
+          }}
+        >
           Apply now
         </button>
-        <button className="text-gray-500 border border-gray-500 rounded px-4 py-2">
+        <button
+          className="text-gray-500 border border-gray-500 rounded px-4 py-2"
+          onClick={() => {
+            navigate(`/apply-job/${job._id}`);
+            scrollTo(0, 0);
+          }}
+        >
           Learn more
         </button>
       </div>
