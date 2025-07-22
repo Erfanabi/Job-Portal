@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import moment from "moment";
+import JobCard from "../components/JobCard";
 
 function ApplyJob() {
   const { id } = useParams();
@@ -10,8 +11,6 @@ function ApplyJob() {
   const [JobData, setJobData] = useState(null);
 
   const { jobs } = useContext(AppContext);
-
-  console.log(jobs);
 
   const fetchJob = useCallback(() => {
     const data = jobs?.filter((job) => job._id == id);
@@ -72,6 +71,29 @@ function ApplyJob() {
             <p className="mt-1 text-gray-600">
               Posted {moment(JobData?.date).fromNow()}
             </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row justify-between items-start">
+          <div class="w-full lg:w-2/3">
+            <h2 class="font-bold text-2xl mb-4">Job description</h2>
+
+            <div
+              className="rich-text"
+              dangerouslySetInnerHTML={{ __html: JobData?.description }}
+            ></div>
+
+            <button class="bg-blue-600 p-2.5 px-10 text-white rounded mt-10">
+              Apply Now
+            </button>
+          </div>
+
+          <div className="w-full lg:w-1/3 mt-8 lg:mt-0 lg:ml-8 space-y-5">
+            <h2>More jobs from {JobData?.companyId?.name}</h2>
+
+            {jobs.slice(0, 3).map((job) => {
+              return <JobCard job={job} />;
+            })}
           </div>
         </div>
       </div>
