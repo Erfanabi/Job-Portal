@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { assets } from "../assets/assets";
+import { assets, jobsApplied } from "../assets/assets";
+import moment from "moment";
 
 function Applications() {
   const [resume, setResume] = useState("");
@@ -10,7 +11,7 @@ function Applications() {
       <div className="container px-4 min-h-[65vh] 2xl:px-20 mx-auto my-10">
         <h2 className="text-xl font-semibold">Your Resume</h2>
 
-        <div className="flex gap-2 mb-6 mt-3">
+        <div className="flex gap-2 mb-7 mt-3">
           <div className="flex gap-2">
             {isEdit ? (
               <>
@@ -57,6 +58,54 @@ function Applications() {
             )}
           </div>
         </div>
+
+        <h2 className="text-xl font-semibold mb-4">Jobs Applied</h2>
+
+        <table className="min-w-full bg-white border rounded-lg">
+          <thead>
+            <tr>
+              <th className="py-3 px-4 border-b text-left">Company</th>
+              <th className="py-3 px-4 border-b text-left">Jobs Title</th>
+              <th className="py-3 px-4 border-b text-left">Location</th>
+              <th className="py-3 px-4 border-b text-left max-sm:hidden">
+                Date
+              </th>
+              <th className="py-3 px-4 border-b text-left">Status</th>
+            </tr>
+          </thead>
+          <tbody className="">
+            {jobsApplied.map((job, index) =>
+              true ? (
+                <tr>
+                  <td className="py-3 px-4 border-b flex items-center gap-2">
+                    <img src={job.logo} alt="" />
+                    {job.company}
+                  </td>
+                  <td className="py-3 px-4 border-b">{job.title}</td>
+                  <td className="py-3 px-4 border-b max-sm:hidden">
+                    {job.location}
+                  </td>
+                  <td className="py-3 px-4 border-b max-sm:hidden">
+                    {moment(job.date).format("")}
+                  </td>
+                  <td className="py-3 px-4 border-b">
+                    <span
+                      className={`${
+                        job.status === "Accepted"
+                          ? "bg-green-100"
+                          : job.status === "Rejected"
+                          ? "bg-red-100"
+                          : "bg-blue-100"
+                      } px-4 py-1.5 rounded`}
+                    >
+                      {job.status}
+                    </span>
+                  </td>
+                </tr>
+              ) : null
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
