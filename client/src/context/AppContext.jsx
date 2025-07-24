@@ -12,6 +12,8 @@ export default function AppContextProvider(props) {
 
   const [jobs, setJobs] = useState([]);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const fetchJobs = async () => {
     setJobs(jobsData);
   };
@@ -26,6 +28,8 @@ export default function AppContextProvider(props) {
     isSearches,
     setIsSearch,
     jobs,
+    isOpen,
+    setIsOpen,
   };
 
   return (

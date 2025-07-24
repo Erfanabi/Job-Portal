@@ -1,12 +1,37 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 function RecruiterLogin() {
   const [state, setState] = useState("Login");
+  //   const [image, setImage] = useState("");
+
+  const { setIsOpen } = useContext(AppContext);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
-    <div className="absolute top-0 left-0 right-0 bottom-0 z-10 bg-red-50 backdrop-blur-sm bg-black/30 flex items-center justify-center">
-      <div className="bg-white p-10 rounded-xl text-slate-500">
+    <div
+      className="absolute top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex items-center justify-center"
+      onClick={() => setIsOpen(false)}
+    >
+      <form
+        className="bg-white p-10 rounded-xl z-20 text-slate-500 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={assets.cross_icon}
+          alt=""
+          className="absolute top-5 right-5 cursor-pointer z-20"
+          onClick={() => setIsOpen(false)}
+        />
+
         <h1 class="text-center text-2xl text-neutral-700 font-medium">
           Recruiter {state === "Login" ? "Login" : "Sign Up"}
         </h1>
@@ -77,7 +102,27 @@ function RecruiterLogin() {
             </span>
           )}
         </p>
-      </div>
+
+        {/* <div className="flex items-center gap-4 my-10">
+          <label htmlFor="image">
+            <img
+              src={image ? URL.createObjectURL(image) : assets.upload_area}
+              alt=""
+              className="w-16 rounded-full"
+            />
+            <input
+              src={image}
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              id="image"
+              hidden
+            />
+          </label>
+          <p>
+            Upload Company <br /> logo
+          </p>
+        </div> */}
+      </form>
     </div>
   );
 }
