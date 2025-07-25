@@ -1,7 +1,10 @@
 import express from "express";
+// import "./src/config/instrument.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
+import { clerkWebhooks } from "./src/controllers/webhooks.js";
+// import * as Sentry from "@sentry/node";
 
 dotenv.config();
 
@@ -16,6 +19,12 @@ async function main() {
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  app.get("/debug-sentry", function mainHandler(req, res) {
+    throw new Error("My first Sentry error!");
+  });
+
+  app.post("/webhook", clerkWebhooks);
 
   app.use((req, res, next) => {
     return res.status(404).send("Not Found Route");
@@ -36,6 +45,9 @@ async function main() {
   });
 
   let port = process.env.PORT || 3000;
+
+  // Sentry.setupExpressErrorHandler(app);
+
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
