@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 function Dashboard() {
@@ -35,8 +35,52 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      Dashboard
-      <Outlet />
+
+      <div className="flex items-start">
+        <div className="inline-block min-h-screen border-r-2">
+          <ul className="flex flex-col items-start pt-5 text-gray-800">
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center p-3 sm:px-6 gap-2 w-full hover:bg-gray-100 false ${
+                  isActive && "border-r-4 border-blue-500 bg-blue-100"
+                }`
+              }
+              to={"/dashboard/add-job"}
+            >
+              <img className="min-w-4" src={assets.add_icon} alt="" />
+              <p className="max-sm:hidden">Add Job</p>
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center p-3 sm:px-6 gap-2 w-full hover:bg-gray-100 false ${
+                  isActive && "border-r-4 border-blue-500 bg-blue-100"
+                }`
+              }
+              to={"/dashboard/manage-jobs"}
+            >
+              <img className="min-w-4" src={assets.home_icon} alt="" />
+              <p className="max-sm:hidden">Manage Jobs</p>
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center p-3 sm:px-6 gap-2 w-full hover:bg-gray-100 false ${
+                  isActive && "border-r-4 border-blue-500 bg-blue-100"
+                }`
+              }
+              to={"/dashboard/view-applications"}
+            >
+              <img className="min-w-4" src={assets.person_tick_icon} alt="" />
+              <p className="max-sm:hidden">View Applications</p>
+            </NavLink>
+          </ul>
+        </div>
+
+        <div className="flex-1 h-full p-2 sm:p-5">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }
