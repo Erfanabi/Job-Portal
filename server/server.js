@@ -1,10 +1,15 @@
 import express from "express";
-// import "./src/config/instrument.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDB from "./src/config/db.js";
-import { clerkWebhooks } from "./src/controllers/webhooks.js";
-// import * as Sentry from "@sentry/node";
+import AllExceptionHandler from "./src/common/exception/all-exception.handler.js";
+import notFoundError from "./src/common/exception/not-found.handler.js";
+import mainRouter from "./src/app.routes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -20,34 +25,17 @@ async function main() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.get("/debug-sentry", function mainHandler(req, res) {
-    throw new Error("My first Sentry error!");
-  });
+  // static public folder
+  app.use("/public", express.static(path.join(__dirname, "public")));
 
-  app.post("/webhook", clerkWebhooks);
+  // route
+  app.use(mainRouter);
 
-  app.use((req, res, next) => {
-    return res.status(404).send("Not Found Route");
-  });
-
-  app.use((err, req, res, next) => {
-    const status = err?.status ?? err?.statusCode ?? 500;
-    let message = err?.message ?? "internal server error";
-
-    if (err?.name === "ValidationError") {
-      const { details } = err;
-      message = details?.body?.[0]?.message ?? "internal server error";
-    }
-
-    return res.status(status).json({
-      message,
-    });
-  });
+  // expetion middleware
+  app.use(AllExceptionHandler);
+  app.use(notFoundError);
 
   let port = process.env.PORT || 3000;
-
-  // Sentry.setupExpressErrorHandler(app);
-
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });

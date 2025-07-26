@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    _id: {
-      type: String,
-      required: true,
-      trim: true,
-    },
     name: {
       type: String,
       required: [true, "نام کامل الزامی است"],
@@ -16,16 +11,20 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "ایمیل الزامی است"],
       unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: [true, "رمز عبور الزامی است"],
+    },
+    image: {
+      type: String,
     },
     resume: {
       type: String,
       trim: true,
       default: "",
-    },
-    image: {
-      type: String,
-      trim: true,
-      default: "default-avatar.jpg",
     },
   },
   {
