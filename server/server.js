@@ -7,6 +7,7 @@ import connectDB from "./src/config/db.js";
 import AllExceptionHandler from "./src/common/exception/all-exception.handler.js";
 import notFoundError from "./src/common/exception/not-found.handler.js";
 import mainRouter from "./src/app.routes.js";
+import connectCloudinary from "./src/config/cloudinary.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,6 +20,7 @@ async function main() {
 
   // Connect to database
   await connectDB();
+  await connectCloudinary();
 
   // Middlewares
   app.use(cors());

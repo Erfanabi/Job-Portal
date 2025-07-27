@@ -6,6 +6,6 @@ const router = Router();
 
 router.post("/sign-up", upload.single("profileImage"), signUpHandler);
 
-router.post("/sign-in", upload.single("profileImage"), signInHandler);
+router.post("/sign-in", signInHandler);
 
 export const AuthRouter = router;

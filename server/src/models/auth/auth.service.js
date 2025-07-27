@@ -2,6 +2,7 @@ import createHttpError from "http-errors";
 import bcrypt from "bcryptjs";
 import User from "../user/user.model.js";
 import jwt from "jsonwebtoken";
+import { v2 as cloudinary } from "cloudinary";
 
 export async function signUpHandler(req, res, next) {
   try {
@@ -21,10 +22,12 @@ export async function signUpHandler(req, res, next) {
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     let imageUrl = null; // مقدار اولیه برای آدرس عکس
+    let imageUpload = null;
 
     // ۳. فقط در صورتی که فایلی آپلود شده بود، آدرس آن را پردازش کن
     if (req.file) {
       imageUrl = req.file.path.replace(/\\/g, "/"); // برای سازگاری با ویندوز و لینوکس
+      imageUpload = await cloudinary.uploader.upload(imageUrl);
     }
 
     // ۴. ساخت کاربر جدید با آدرس عکس
@@ -32,7 +35,7 @@ export async function signUpHandler(req, res, next) {
       name,
       email,
       password: hashedPassword,
-      image: imageUrl, // ذخیره آدرس فایل در دیتابیس
+      image: req.file ? imageUpload.secure_url : "", // ذخیره آدرس فایل در دیتابیس
     });
 
     res.status(201).json({
