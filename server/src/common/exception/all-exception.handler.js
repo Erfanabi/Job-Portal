@@ -10,3 +10,20 @@ const AllExceptionHandler = (err, req, res, next) => {
 };
 
 export default AllExceptionHandler;
+
+// const AllExceptionHandler = (err, req, res, next) => {
+//   let status = err.statusCode || err.status || 500;
+
+//   if (isNaN(status) || status < 100 || status > 599) {
+//     status = 500;
+//   }
+
+//   const responseBody = {
+//     statusCode: status,
+//     message: err.message || "خطایی در سرور رخ داده است.",
+//   };
+
+//   res.status(status).json(responseBody);
+// };
+
+// export default AllExceptionHandler;

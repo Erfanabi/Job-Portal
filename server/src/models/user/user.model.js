@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "نام کامل الزامی است"],
+      required: [true, "نام کامل یا نام شرکت الزامی است"],
       trim: true,
     },
     email: {
@@ -21,14 +21,21 @@ const userSchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    role: {
+      type: String,
+      enum: ["user", "company"],
+      default: "user",
+      required: true,
+    },
+
     resume: {
       type: String,
       trim: true,
-      default: "",
     },
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

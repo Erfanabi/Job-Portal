@@ -5,18 +5,13 @@ import {
   getCompanyData,
   getCompanyJobApplicants,
   getCompanyPostedJobs,
-  loginCompany,
   postJob,
-  registerCompany,
 } from "../controllers/companyController.js";
+import { authMiddleware, isCompany } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
-// Register a company
-router.post("/register", registerCompany);
-
-// Company login
-router.post("/login", loginCompany);
+router.use(authMiddleware, isCompany);
 
 // Get company data
 router.get("/company", getCompanyData);

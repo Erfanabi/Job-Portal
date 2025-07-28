@@ -6,14 +6,16 @@ import { v2 as cloudinary } from "cloudinary";
 
 export async function signUpHandler(req, res, next) {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    // ۱. اعتبارسنجی فیلدهای متنی
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !role) {
       throw createHttpError(400, "نام، ایمیل و رمز عبور الزامی هستند.");
     }
 
-    // ... بررسی کاربر تکراری و سایر موارد ...
+    if (!["user", "company"].includes(role)) {
+      throw createHttpError(400, "مقدار نقش باید 'user' یا 'company' باشد.");
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       throw createHttpError(409, "کاربری با این ایمیل قبلاً ثبت‌نام کرده است.");
@@ -24,28 +26,24 @@ export async function signUpHandler(req, res, next) {
     let imageUrl = null; // مقدار اولیه برای آدرس عکس
     let imageUpload = null;
 
-    // ۳. فقط در صورتی که فایلی آپلود شده بود، آدرس آن را پردازش کن
     if (req.file) {
       imageUrl = req.file.path.replace(/\\/g, "/"); // برای سازگاری با ویندوز و لینوکس
       imageUpload = await cloudinary.uploader.upload(imageUrl);
     }
 
-    // ۴. ساخت کاربر جدید با آدرس عکس
     const newUser = await User.create({
       name,
       email,
       password: hashedPassword,
+      role,
       image: req.file ? imageUpload.secure_url : "", // ذخیره آدرس فایل در دیتابیس
     });
 
+    newUser.password = undefined;
+
     res.status(201).json({
       message: "ثبت‌نام با موفقیت انجام شد.",
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        image: newUser.image,
-      },
+      user: newUser,
     });
   } catch (error) {
     next(error);
@@ -57,30 +55,26 @@ export async function signInHandler(req, res, next) {
   try {
     const { email, password } = req.body;
 
-    // ۱. اعتبارسنجی ورودی
     if (!email || !password) {
       throw createHttpError(400, "ایمیل و رمز عبور الزامی هستند.");
     }
 
-    // ۲. پیدا کردن کاربر
     const user = await User.findOne({ email });
     if (!user) {
-      throw createHttpError(401, "ایمیل یا رمز عبور اشتباه است."); // پیام امن و عمومی
+      throw createHttpError(401, "ایمیل یا رمز عبور اشتباه است.");
     }
 
-    // ۳. مقایسه رمز عبور
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       throw createHttpError(401, "ایمیل یا رمز عبور اشتباه است.");
     }
 
-    // ۴. ساخت توکن‌ها
     const { accessToken, refreshToken } = generateTokens({
       id: user._id,
       email: user.email,
+      role: user.role,
     });
 
-    // ۵. ارسال پاسخ موفقیت‌آمیز
     res.status(200).json({
       message: "ورود با موفقیت انجام شد.",
       accessToken,
@@ -91,7 +85,6 @@ export async function signInHandler(req, res, next) {
   }
 }
 
-// تابع کمکی برای ساخت توکن‌ها
 function generateTokens(payload) {
   const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
