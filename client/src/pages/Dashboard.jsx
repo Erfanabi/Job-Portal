@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 function Dashboard() {
   const navigate = useNavigate();
+
+  const { companyData } = useContext(AppContext);
 
   return (
     <div className="min-h-screen">
@@ -17,11 +20,13 @@ function Dashboard() {
           />
 
           <div className="flex items-center gap-3">
-            <p className="max-sm:hidden">Welcome, GreatStack</p>
+            <p className="max-sm:hidden">Welcome, {companyData?.name ?? "-"}</p>
 
             <div className="relative group">
               <img
-                src={assets.company_icon}
+                src={
+                  companyData?.image ? companyData?.image : assets.company_icon
+                }
                 alt=""
                 className="w-8 border rounded-full"
               />

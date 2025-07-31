@@ -9,8 +9,13 @@ import AddJobs from "./pages/AddJobs";
 import ManagerJobs from "./pages/ManagerJobs";
 import ViewApplications from "./pages/ViewApplications";
 import "quill/dist/quill.snow.css";
+import { ToastContainer } from "react-toastify";
+import { useContext } from "react";
+import { AppContext } from "./context/AppContext";
 
 function App() {
+  const { companyToken } = useContext(AppContext);
+
   return (
     <div>
       <Routes>
@@ -20,15 +25,24 @@ function App() {
           <Route path="/apply-job/:id" element={<ApplyJob />} />
           <Route path="/applications" element={<Applications />} />
 
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route index path="add-job" element={<AddJobs />} />
-            <Route path="manage-jobs" element={<ManagerJobs />} />
-            <Route path="view-applications" element={<ViewApplications />} />
-          </Route>
+          {companyToken ? (
+            <>
+              <Route path="/dashboard" element={<Dashboard />}>
+                <Route index path="add-job" element={<AddJobs />} />
+                <Route path="manage-jobs" element={<ManagerJobs />} />
+                <Route
+                  path="view-applications"
+                  element={<ViewApplications />}
+                />
+              </Route>
+            </>
+          ) : null}
 
           {/* <Route path="*" element={<NotFound />} /> */}
         </Route>
       </Routes>
+
+      <ToastContainer />
     </div>
   );
 }
