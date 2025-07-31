@@ -14,7 +14,7 @@ const router = Router();
 router.use(authMiddleware, isCompany);
 
 // Get company data
-router.get("/company", getCompanyData);
+router.get("/", getCompanyData);
 
 // Post a job
 router.post("/post-job", postJob);

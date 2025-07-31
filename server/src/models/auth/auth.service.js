@@ -77,6 +77,7 @@ export async function signInHandler(req, res, next) {
 
     res.status(200).json({
       message: "ورود با موفقیت انجام شد.",
+      user,
       accessToken,
       refreshToken,
     });

@@ -1,15 +1,16 @@
 const AllExceptionHandler = (err, req, res, next) => {
   let status = err?.statusCode ?? err?.status ?? err?.code;
 
-  if (!status || isNaN(+status) || status > 511 || status < 200) status = 500;
+  if (!status || isNaN(+status) || status > 511 || status < 400) status = 500;
 
-  res.send({
+  res.status(status).json({
     statusCode: status,
     message: err?.message ?? err?.stack ?? "internalServerError",
   });
 };
 
 export default AllExceptionHandler;
+
 
 // const AllExceptionHandler = (err, req, res, next) => {
 //   let status = err.statusCode || err.status || 500;
