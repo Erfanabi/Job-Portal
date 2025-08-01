@@ -1,9 +1,14 @@
 import Quill from "quill";
 import "quill/dist/quill.snow.css"; // استایل ویرایشگر را ایمپورت کنید
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { JobCategories, JobLocations } from "../assets/assets";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 function AddJobs() {
+  const { backendUrl, companyToken } = useContext(AppContext);
+
   const [jobData, setJobData] = useState({
     title: "",
     description: "",
@@ -40,10 +45,29 @@ function AddJobs() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Job Data Submitted:", jobData);
-    alert("اطلاعات شغل با موفقیت ثبت شد! کنسول را بررسی کنید.");
+    const endpoint = backendUrl + "/company/post-job";
+
+    try {
+      const { data } = await axios.post(endpoint, jobData, {
+        headers: {
+          Authorization: `Bearer ${companyToken}`,
+        },
+      });
+      toast.success(data.message);
+      setJobData({
+        title: "",
+        description: "",
+        location: "",
+        category: "",
+        level: "",
+        salary: "",
+      });
+      quillRef.current.root.innerHTML = "";
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+    }
   };
 
   return (
