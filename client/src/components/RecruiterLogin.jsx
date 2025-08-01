@@ -22,6 +22,7 @@ function RecruiterLogin() {
     setCompanyToken,
     setCompanyData,
     setUserData,
+    setUserToken,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -67,16 +68,18 @@ function RecruiterLogin() {
       toast.success(data.message);
 
       if (data?.accessToken) {
-        setCompanyToken(data.accessToken);
-        localStorage.setItem("companyToken", data.accessToken);
+        console.log(data.user);
 
         if (data.user.role === "company") {
-          console.log(data.user);
-
+          localStorage.setItem("companyToken", data.accessToken);
+          setCompanyToken(data.accessToken);
           setCompanyData(data.user);
+
           navigate("/dashboard");
         } else {
+          localStorage.setItem("userToken", data.accessToken);
           setUserData(data.user);
+          setUserToken(data.accessToken);
         }
       }
 

@@ -29,9 +29,7 @@ function Dashboard() {
 
             <div className="relative group">
               <img
-                src={
-                  companyData?.image ? companyData?.image : assets.company_icon
-                }
+                src={companyData?.image ? companyData?.image : assets.avatar}
                 alt=""
                 className="w-8 border rounded-full"
               />

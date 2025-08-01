@@ -19,6 +19,7 @@ export default function AppContextProvider(props) {
 
   const [companyToken, setCompanyToken] = useState(null);
   const [companyData, setCompanyData] = useState(null);
+  const [userToken, setUserToken] = useState(null);
   const [userData, setUserData] = useState(null);
 
   const fetchJobs = async () => {
@@ -48,7 +49,27 @@ export default function AppContextProvider(props) {
 
       if (data?.success) {
         setCompanyData(data.company);
-        console.log("**", data.company);
+        console.log("*company*", data.company);
+      }
+    } catch (err) {
+      console.log(err?.response?.data?.message);
+      toast.error(err?.response?.data?.message);
+    }
+  };
+
+  const fetchUserData = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/user`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      console.log(data);
+
+      if (data?.success) {
+        setUserData(data.user);
+        console.log("*user*", data.user);
       }
     } catch (err) {
       console.log(err?.response?.data?.message);
@@ -60,9 +81,18 @@ export default function AppContextProvider(props) {
     fetchJobs();
 
     const storedCompanyToken = localStorage.getItem("companyToken");
+    const storedUserToken = localStorage.getItem("userToken");
 
     if (storedCompanyToken) {
+      console.log("storedCompanyToken");
+
       setCompanyToken(storedCompanyToken);
+    }
+
+    if (storedUserToken) {
+      console.log("storedUserToken");
+
+      setUserToken(storedUserToken);
     }
   }, []);
 
@@ -70,7 +100,10 @@ export default function AppContextProvider(props) {
     if (companyToken) {
       fetchCompanyData();
     }
-  }, [companyToken]);
+    if (userToken) {
+      fetchUserData();
+    }
+  }, [companyToken, userToken]);
 
   const value = {
     searchFilter,
@@ -87,6 +120,9 @@ export default function AppContextProvider(props) {
     backendUrl,
     userData,
     setUserData,
+    userToken,
+    setUserToken,
+    fetchUserData,
   };
 
   return (
