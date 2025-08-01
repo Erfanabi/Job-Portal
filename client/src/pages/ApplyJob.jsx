@@ -114,7 +114,7 @@ function ApplyJob() {
         </div>
 
         <div className="flex flex-col lg:flex-row justify-between items-start">
-          <div class="w-full lg:w-2/3">
+          <div className="w-full lg:w-2/3">
             <h2 class="font-bold text-2xl mb-4">Job description</h2>
 
             <div
@@ -130,8 +130,8 @@ function ApplyJob() {
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0 lg:ml-8 space-y-5">
             <h2>More jobs from {JobData?.companyId?.name}</h2>
 
-            {jobs.slice(0, 3).map((job) => {
-              return <JobCard job={job} />;
+            {jobs.slice(0, 3).map((job, index) => {
+              return <JobCard job={job} key={index} />;
             })}
           </div>
         </div>
