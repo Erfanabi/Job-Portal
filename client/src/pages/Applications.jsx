@@ -165,9 +165,9 @@ function Applications() {
                 <td className="py-3 px-4 border-b">
                   <span
                     className={`${
-                      job.status === "Accepted"
+                      job.status === "accepted"
                         ? "bg-green-100"
-                        : job.status === "Rejected"
+                        : job.status === "rejected"
                         ? "bg-red-100"
                         : "bg-blue-100"
                     } px-4 py-1.5 rounded`}
