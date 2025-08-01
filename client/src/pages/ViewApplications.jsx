@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { assets, viewApplicationsPageData } from "../assets/assets";
+import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -17,7 +17,6 @@ function ViewApplications() {
         },
       });
       setApplicants(data);
-      console.log(data);
     } catch (err) {
       console.log(err);
       toast.error(toast?.response?.data?.message);
@@ -39,6 +38,7 @@ function ViewApplications() {
         }
       );
       toast.success(data.message);
+      await fetchCompanyJobApplications();
     } catch (err) {
       console.log(err);
       toast.error(toast?.response?.data?.message);
