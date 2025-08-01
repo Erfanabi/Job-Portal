@@ -4,19 +4,29 @@ import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import moment from "moment";
 import JobCard from "../components/JobCard";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function ApplyJob() {
   const { id } = useParams();
 
   const [JobData, setJobData] = useState(null);
 
-  const { jobs } = useContext(AppContext);
+  const { jobs, backendUrl, companyToken } = useContext(AppContext);
 
-  const fetchJob = useCallback(() => {
-    const data = jobs?.filter((job) => job._id == id);
+  const fetchJob = useCallback(async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/jobs/${id}`, {
+        headers: {
+          Authorization: `Bearer ${companyToken}`,
+        },
+      });
+      console.log(data);
 
-    if (data.length !== 0) {
-      setJobData(data[0]);
+      setJobData(data.job);
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.response?.data?.message);
     }
   }, [jobs, id]);
 

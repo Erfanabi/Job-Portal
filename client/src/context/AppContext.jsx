@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { jobsData } from "../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -23,7 +22,17 @@ export default function AppContextProvider(props) {
   const [userData, setUserData] = useState(null);
 
   const fetchJobs = async () => {
-    setJobs(jobsData);
+    try {
+      const { data } = await axios.get(`${backendUrl}/jobs`, {
+        headers: {
+          Authorization: `Bearer ${companyToken}`,
+        },
+      });
+      setJobs(data.jobs);
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.response?.data?.message);
+    }
   };
 
   // Function to fetch company data
