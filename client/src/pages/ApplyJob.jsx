@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import moment from "moment";
@@ -9,19 +9,15 @@ import { toast } from "react-toastify";
 
 function ApplyJob() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [JobData, setJobData] = useState(null);
 
-  const { jobs, backendUrl, companyToken } = useContext(AppContext);
+  const { jobs, backendUrl, userToken, userData } = useContext(AppContext);
 
   const fetchJob = useCallback(async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/jobs/${id}`, {
-        headers: {
-          Authorization: `Bearer ${companyToken}`,
-        },
-      });
-      console.log(data);
+      const { data } = await axios.get(`${backendUrl}/jobs/${id}`);
 
       setJobData(data.job);
     } catch (err) {
@@ -29,6 +25,32 @@ function ApplyJob() {
       toast.error(err?.response?.data?.message);
     }
   }, [jobs, id]);
+
+  const applyJob = async () => {
+    if (!userData) {
+      toast.error("وارد حساب کاربری خود شوید");
+    }
+    if (!userData.resume) {
+      toast.error("رزومه خود را آپلود کنید");
+      navigate("/applications");
+    }
+
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/user/apply",
+        { jobId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      toast.success(data.message);
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.response?.data?.message);
+    }
+  };
 
   useEffect(() => {
     fetchJob();
@@ -40,8 +62,12 @@ function ApplyJob() {
         <div className="flex justify-center md:justify-between flex-wrap gap-8 px-14 py-20 mb-6 bg-sky-50 border border-sky-400 rounded-xl">
           <div className="flex flex-col md:flex-row items-center">
             <img
-              src={JobData?.companyId?.image}
-              className="h-24 bg-white rounded-lg p-4 mr-4 max-md:mb-4 border"
+              src={
+                JobData?.companyId?.image
+                  ? JobData?.companyId?.image
+                  : assets.not_found2
+              }
+              className="h-24 w-24 object-contain bg-white rounded-lg p-4 mr-4 max-md:mb-4 border"
               alt=""
             />
 
@@ -75,7 +101,10 @@ function ApplyJob() {
           </div>
 
           <div className="flex flex-col justify-center text-end text-sm max-md:mx-auto max-md:text-center">
-            <button className="bg-blue-600 p-2.5 px-10 text-white rounded">
+            <button
+              className="bg-blue-600 p-2.5 px-10 text-white rounded"
+              onClick={applyJob}
+            >
               Apply Now
             </button>
             <p className="mt-1 text-gray-600">

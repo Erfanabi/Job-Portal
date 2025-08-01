@@ -34,6 +34,9 @@ import samsung_logo from './samsung_logo.png'
 import adobe_logo from './adobe_logo.png'
 import amazon_logo from './amazon_logo.png'
 import avatar from "./avatar.jpeg"
+import not_found from "./not-found.jpg"
+import not_found2 from "./not-found2.jpeg"
+
 
 export const assets = {
     logo,
@@ -71,7 +74,9 @@ export const assets = {
     samsung_logo,
     adobe_logo,
     amazon_logo,
-    avatar
+    avatar,
+    not_found,
+    not_found2
 }
 
 export const JobCategories = [

@@ -1,10 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets, jobsApplied } from "../assets/assets";
 import moment from "moment";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Applications() {
-  const [resume, setResume] = useState("");
+  const { backendUrl, userToken, userData } = useContext(AppContext);
+
+  const [resume, setResume] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+
+  const updateResume = async () => {
+    if (!resume) {
+      toast.error("No file selected");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", resume);
+
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/user/update-resume`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      toast.success(data.message);
+      setIsEdit(false);
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Failed to upload resume");
+    }
+  };
 
   return (
     <div>
@@ -17,12 +50,12 @@ function Applications() {
               <>
                 <label htmlFor="resumeUpload" className="flex items-center">
                   <p className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg mr-2">
-                    Select Resume
+                    {resume ? resume?.name : "Select Resume"}
                   </p>
 
                   <input
                     id="resumeUpload"
-                    onChange={(e) => setResume(e.target.value[0])}
+                    onChange={(e) => setResume(e.target.files[0])}
                     accept="application/pdf"
                     type="file"
                     hidden
@@ -37,16 +70,27 @@ function Applications() {
 
                 <button
                   className="bg-green-100 text-green-400 px-4 py-2 rounded-lg"
-                  onClick={() => setIsEdit(false)}
+                  onClick={updateResume}
                 >
                   Save
                 </button>
               </>
             ) : (
               <>
-                <a className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg">
-                  Resume
-                </a>
+                {userData?.resume ? (
+                  <a
+                    href={userData.resume}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg"
+                  >
+                    Resume
+                  </a>
+                ) : (
+                  <span className="text-gray-400 px-4 py-2 rounded-lg">
+                    No resume uploaded
+                  </span>
+                )}
 
                 <button
                   className="text-gray-500 rounded-lg border border-gray-300 px-4 py-2"
@@ -76,7 +120,7 @@ function Applications() {
           <tbody className="">
             {jobsApplied.map((job, index) =>
               true ? (
-                <tr>
+                <tr key={index}>
                   <td className="py-3 px-4 border-b flex items-center gap-2">
                     <img src={job.logo} alt="" />
                     {job.company}
@@ -86,7 +130,7 @@ function Applications() {
                     {job.location}
                   </td>
                   <td className="py-3 px-4 border-b max-sm:hidden">
-                    {moment(job.date).format("")}
+                    {moment(job.date).format("YYYY-MM-DD")}
                   </td>
                   <td className="py-3 px-4 border-b">
                     <span

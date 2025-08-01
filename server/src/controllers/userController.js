@@ -1,6 +1,8 @@
 import createHttpError from "http-errors";
 import Job from "../models/Job.js";
 import JobApplication from "../models/JobApplicationSchema.js";
+import { v2 as cloudinary } from "cloudinary";
+import User from "../models/user/user.model.js";
 
 // get user data
 /**

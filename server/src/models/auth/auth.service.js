@@ -31,13 +31,19 @@ export async function signUpHandler(req, res, next) {
       imageUpload = await cloudinary.uploader.upload(imageUrl);
     }
 
-    const newUser = await User.create({
+    let userData = {
       name,
       email,
       password: hashedPassword,
       role,
       image: req.file ? imageUpload.secure_url : "", // ذخیره آدرس فایل در دیتابیس
-    });
+    };
+
+    if (role === "user") {
+      userData = { ...userData, resume: "" };
+    }
+
+    const newUser = await User.create(userData);
 
     newUser.password = undefined;
 
