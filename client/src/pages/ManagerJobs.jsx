@@ -1,8 +1,55 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { manageJobsData } from "../assets/assets";
 import moment from "moment";
+import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 function ManagerJobs() {
+  const [job, setJob] = useState([]);
+
+  const { backendUrl, companyToken } = useContext(AppContext);
+
+  const fetchCompanyJob = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/company/list-jobs", {
+        headers: {
+          Authorization: `Bearer ${companyToken}`,
+        },
+      });
+      setJob(data.jobs);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+      toast.error(toast?.response?.data?.message);
+    }
+  };
+
+  const changeToVisiblity = async (id, visible) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/company/change-visiblity",
+        { jobId: id, visible },
+        {
+          headers: {
+            Authorization: `Bearer ${companyToken}`,
+          },
+        }
+      );
+      fetchCompanyJob();
+      toast.success(data.message);
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.response?.data?.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchCompanyJob();
+  }, []);
+
+  console.log(job);
+
   return (
     <div className="container p-4 max-w-5xl">
       <div className="overflow-x-auto">
@@ -23,27 +70,27 @@ function ManagerJobs() {
           </thead>
 
           <tbody className="">
-            {manageJobsData?.map((job, index) => (
+            {job?.map((job, index) => (
               <tr key={index} className="text-gray-700">
                 <td className="py-2 px-4 border-b max-sm:hidden">
                   {index + 1}
                 </td>
-                <td className="py-2 px-4 border-b">{job.title}</td>
+                <td className="py-2 px-4 border-b">{job?.title}</td>
                 <td className="py-2 px-4 border-b max-sm:hidden">
-                  {moment(job.date).format("11")}
+                  {moment(job?.date).format("11")}
                 </td>
                 <td className="py-2 px-4 border-b max-sm:hidden">
-                  {job.location}
+                  {job?.location}
                 </td>
                 <td className="py-2 px-4 border-b text-center">
-                  {job.applicants}
+                  {job?.applicants}
                 </td>
                 <td className="py-2 px-4 border-b">
                   <input
                     type="checkbox"
                     className="scale-125 ml-4"
-                    name=""
-                    id=""
+                    checked={job.visible}
+                    onChange={() => changeToVisiblity(job._id, !job.visible)}
                   />
                 </td>
               </tr>

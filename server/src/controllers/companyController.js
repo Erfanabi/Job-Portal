@@ -1,4 +1,5 @@
 import Job from "../models/Job.js";
+import JobApplication from "../models/JobApplicationSchema.js";
 
 // Register a new company
 export const registerCompany = async (req, res) => {};
@@ -48,8 +49,14 @@ export const getCompanyPostedJobs = async (req, res) => {
     const jobs = await Job.find({ companyId }).sort({ createdAt: -1 });
 
     // (ToDo) Adding No. of applicants info in data
+    const jobsData = await Promise.all(
+      jobs.map(async job => {
+        const applicants = await JobApplication.find({ jobId: job._id });
+        return { ...job.toObject(), applicants: applicants.length };
+      }),
+    );
 
-    res.status(200).json({ success: true, jobs });
+    res.status(200).json({ success: true, jobs: jobsData });
   } catch (error) {
     next(error);
   }
