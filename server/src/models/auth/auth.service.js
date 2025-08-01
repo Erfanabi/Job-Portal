@@ -90,7 +90,7 @@ function generateTokens(payload) {
   const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
   const accessToken = jwt.sign(payload, ACCESS_TOKEN_SECRET, {
-    expiresIn: "1h", // توکن دسترسی معمولاً کوتاه‌مدت است
+    expiresIn: "24h", // توکن دسترسی معمولاً کوتاه‌مدت است
   });
 
   const refreshToken = jwt.sign(payload, REFRESH_TOKEN_SECRET, {
