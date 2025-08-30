@@ -65,7 +65,7 @@ function Applications() {
 
   return (
     <div className="container px-4 min-h-[65vh] 2xl:px-20 mx-auto my-10">
-      <h2 className="text-xl font-semibold">Your Resume</h2>
+      <h2 className="text-xl font-semibold">رزومه شما</h2>
 
       <div className="flex gap-2 mb-7 mt-3">
         <div className="flex gap-2">
@@ -73,7 +73,7 @@ function Applications() {
             <>
               <label htmlFor="resumeUpload" className="flex items-center">
                 <p className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg mr-2">
-                  {resume ? resume?.name : "Select Resume"}
+                  {resume ? resume?.name : "انتخاب فایل رزومه"}
                 </p>
 
                 <input
@@ -95,7 +95,7 @@ function Applications() {
                 className="bg-green-100 text-green-400 px-4 py-2 rounded-lg"
                 onClick={updateResume}
               >
-                Save
+                ذخیره
               </button>
             </>
           ) : (
@@ -107,11 +107,11 @@ function Applications() {
                   rel="noopener noreferrer"
                   className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg"
                 >
-                  Resume
+                  مشاهده رزومه
                 </a>
               ) : (
                 <span className="text-gray-400 px-4 py-2 rounded-lg">
-                  No resume uploaded
+                  رزومه‌ای آپلود نشده است
                 </span>
               )}
 
@@ -119,23 +119,25 @@ function Applications() {
                 className="text-gray-500 rounded-lg border border-gray-300 px-4 py-2"
                 onClick={() => setIsEdit(true)}
               >
-                Edit
+                ویرایش
               </button>
             </>
           )}
         </div>
       </div>
 
-      <h2 className="text-xl font-semibold mb-4">Jobs Applied</h2>
+      <h2 className="text-xl font-semibold mb-4">فرصت‌های درخواست‌شده</h2>
 
       <table className="min-w-full bg-white border rounded-lg">
         <thead>
           <tr>
-            <th className="py-3 px-4 border-b text-left">Company</th>
-            <th className="py-3 px-4 border-b text-left">Jobs Title</th>
-            <th className="py-3 px-4 border-b text-left">Location</th>
-            <th className="py-3 px-4 border-b text-left max-sm:hidden">Date</th>
-            <th className="py-3 px-4 border-b text-left">Status</th>
+            <th className="py-3 px-4 border-b text-left">انجمن/سازمان</th>
+            <th className="py-3 px-4 border-b text-left">عنوان</th>
+            <th className="py-3 px-4 border-b text-left">مکان</th>
+            <th className="py-3 px-4 border-b text-left max-sm:hidden">
+              تاریخ
+            </th>
+            <th className="py-3 px-4 border-b text-left">وضعیت</th>
           </tr>
         </thead>
 

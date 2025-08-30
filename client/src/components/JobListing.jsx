@@ -19,7 +19,7 @@ function JobListing() {
         {isSearches &&
           (searchFilter.title !== "" || searchFilter.location !== "") && (
             <div>
-              <h3 className="font-medium text-lg mb-4">Current Search</h3>
+              <h3 className="font-medium text-lg mb-4">جستجوی فعلی</h3>
               <div className="mb-4 text-gray-600">
                 {searchFilter.title && (
                   <span className="inline-flex items-center gap-2.5 bg-blue-50 border border-blue-200 px-4 py-1.5 rounded">
@@ -54,11 +54,11 @@ function JobListing() {
           className="px-6 py-1.5 rounded border border-gray-400 lg:hidden"
           onClick={() => setShowFilter((prev) => !prev)}
         >
-          {!showFilter ? "Filters" : "Close"}
+          {!showFilter ? "فیلترها" : "بستن"}
         </button>
 
         <div className={!showFilter ? "max-lg:hidden" : ""}>
-          <h4 className="font-medium text-lg py-4">Search by Categories</h4>
+          <h4 className="font-medium text-lg py-4">جستجو بر اساس دسته‌بندی</h4>
           <ul className="space-y-4 text-gray-600">
             {JobCategories.map((cat, index) => (
               <li className="flex gap-3 items-center" key={index}>
@@ -70,7 +70,7 @@ function JobListing() {
         </div>
 
         <div className={!showFilter ? "max-lg:hidden pt-12" : ""}>
-          <h4 className="font-medium text-lg py-4">Search by Location</h4>
+          <h4 className="font-medium text-lg py-4">جستجو بر اساس مکان</h4>
           <ul className="space-y-4 text-gray-600">
             {JobLocations.map((loc, index) => (
               <li className="flex gap-3 items-center" key={index}>
@@ -84,9 +84,9 @@ function JobListing() {
 
       <section className="w-full lg:w-3/4 text-gray-800 max-lg:px-4">
         <h3 className="font-medium text-3xl py-2" id="job-list">
-          Latest jobs
+          جدیدترین فرصت‌ها
         </h3>
-        <p className="mb-8">Get your desired job from top companies</p>
+        <p className="mb-8">فرصت‌ها و اطلاعیه‌های جدید انجمن دانشگاه خیام</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {jobs
             .slice((currentPage - 1) * 6, currentPage * 6)

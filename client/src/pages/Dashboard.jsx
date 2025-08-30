@@ -25,7 +25,9 @@ function Dashboard() {
           />
 
           <div className="flex items-center gap-3">
-            <p className="max-sm:hidden">Welcome, {companyData?.name ?? "-"}</p>
+            <p className="max-sm:hidden">
+              خوش آمدید، {companyData?.name ?? "-"}
+            </p>
 
             <div className="relative group">
               <img
@@ -45,7 +47,7 @@ function Dashboard() {
                       navigate("/");
                     }}
                   >
-                    Logout
+                    خروج
                   </li>
                 </ul>
               </div>
@@ -66,7 +68,7 @@ function Dashboard() {
               to={"/dashboard/add-job"}
             >
               <img className="min-w-4" src={assets.add_icon} alt="" />
-              <p className="max-sm:hidden">Add Job</p>
+              <p className="max-sm:hidden">افزودن فرصت</p>
             </NavLink>
 
             <NavLink
@@ -78,7 +80,7 @@ function Dashboard() {
               to={"/dashboard/manage-jobs"}
             >
               <img className="min-w-4" src={assets.home_icon} alt="" />
-              <p className="max-sm:hidden">Manage Jobs</p>
+              <p className="max-sm:hidden">مدیریت فرصت‌ها</p>
             </NavLink>
 
             <NavLink
@@ -90,7 +92,7 @@ function Dashboard() {
               to={"/dashboard/view-applications"}
             >
               <img className="min-w-4" src={assets.person_tick_icon} alt="" />
-              <p className="max-sm:hidden">View Applications</p>
+              <p className="max-sm:hidden">مشاهده درخواست‌ها</p>
             </NavLink>
           </ul>
         </div>

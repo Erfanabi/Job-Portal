@@ -105,17 +105,17 @@ function ApplyJob() {
               className="bg-blue-600 p-2.5 px-10 text-white rounded"
               onClick={applyJob}
             >
-              Apply Now
+              ارسال درخواست
             </button>
             <p className="mt-1 text-gray-600">
-              Posted {moment(JobData?.date).fromNow()}
+              منتشر شده {moment(JobData?.date).fromNow()}
             </p>
           </div>
         </div>
 
         <div className="flex flex-col lg:flex-row justify-between items-start">
           <div className="w-full lg:w-2/3">
-            <h2 class="font-bold text-2xl mb-4">Job description</h2>
+            <h2 class="font-bold text-2xl mb-4">توضیحات</h2>
 
             <div
               className="rich-text"
@@ -123,12 +123,12 @@ function ApplyJob() {
             ></div>
 
             <button class="bg-blue-600 p-2.5 px-10 text-white rounded mt-10">
-              Apply Now
+              ارسال درخواست
             </button>
           </div>
 
           <div className="w-full lg:w-1/3 mt-8 lg:mt-0 lg:ml-8 space-y-5">
-            <h2>More jobs from {JobData?.companyId?.name}</h2>
+            <h2>فرصت‌های دیگر از {JobData?.companyId?.name}</h2>
 
             {jobs.slice(0, 3).map((job, index) => {
               return <JobCard job={job} key={index} />;

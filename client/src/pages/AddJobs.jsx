@@ -76,26 +76,26 @@ function AddJobs() {
       className="container p-4 flex flex-col w-full items-start gap-5"
     >
       <div className="w-full">
-        <p className="mb-2 font-medium">Job Title</p>
+        <p className="mb-2 font-medium">عنوان</p>
         <input
           name="title"
           value={jobData.title}
           onChange={handleChange}
           className="w-full max-w-lg px-3 py-2 border-2 border-gray-300 rounded focus:border-blue-500 outline-none"
           type="text"
-          placeholder="e.g., Senior React Developer"
+          placeholder="مثال: برنامه‌نویس React ارشد"
           required
         />
       </div>
 
       <div className="w-full max-w-lg">
-        <p className="my-2 font-medium">Job Description</p>
+        <p className="my-2 font-medium">توضیحات</p>
         <div ref={editorRef} style={{ minHeight: "150px" }}></div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4 w-full sm:gap-8">
         <div>
-          <p className="mb-2 font-medium">Job Category</p>
+          <p className="mb-2 font-medium">دسته‌بندی</p>
           <select
             name="category"
             value={jobData.category}
@@ -111,7 +111,7 @@ function AddJobs() {
         </div>
 
         <div>
-          <p className="mb-2 font-medium">Job Location</p>
+          <p className="mb-2 font-medium">مکان</p>
           <select
             name="location"
             value={jobData.location}
@@ -127,29 +127,29 @@ function AddJobs() {
         </div>
 
         <div>
-          <p className="mb-2 font-medium">Job Level</p>
+          <p className="mb-2 font-medium">سطح</p>
           <select
             name="level"
             value={jobData.level}
             onChange={handleChange}
             className="w-full sm:w-48 px-3 py-2 border-2 border-gray-300 rounded"
           >
-            <option value="Beginner level">Beginner level</option>
-            <option value="Intermediate level">Intermediate level</option>
-            <option value="Senior level">Senior level</option>
+            <option value="Beginner level">مبتدی</option>
+            <option value="Intermediate level">متوسط</option>
+            <option value="Senior level">حرفه‌ای</option>
           </select>
         </div>
       </div>
 
       <div>
-        <p className="mb-2 font-medium">Job Salary (Optional)</p>
+        <p className="mb-2 font-medium">حق‌الزحمه (اختیاری)</p>
         <input
           name="salary"
           value={jobData.salary}
           onChange={handleChange}
           className="w-full px-3 py-2 border-2 border-gray-300 rounded sm:w-[150px]"
           type="number"
-          placeholder="e.g., 5000"
+          placeholder="مثال: ۵۰۰۰"
         />
       </div>
 
@@ -157,7 +157,7 @@ function AddJobs() {
         className="w-28 py-3 mt-4 bg-black text-white rounded hover:bg-gray-800 transition-colors"
         type="submit"
       >
-        ADD
+        ثبت
       </button>
     </form>
   );

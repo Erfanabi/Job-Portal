@@ -57,15 +57,15 @@ function ManagerJobs() {
           <thead>
             <tr>
               <th className="py-2 px-4 border-b text-left max-sm:hidden">#</th>
-              <th className="py-2 px-4 border-b text-left">Job Title</th>
+              <th className="py-2 px-4 border-b text-left">عنوان</th>
               <th className="py-2 px-4 border-b text-left max-sm:hidden">
-                Date
+                تاریخ
               </th>
               <th className="py-2 px-4 border-b text-left max-sm:hidden">
-                Location
+                مکان
               </th>
-              <th className="py-2 px-4 border-b text-center">Applicants</th>
-              <th className="py-2 px-4 border-b text-left">Visible</th>
+              <th className="py-2 px-4 border-b text-center">متقاضیان</th>
+              <th className="py-2 px-4 border-b text-left">نمایش</th>
             </tr>
           </thead>
 
@@ -101,7 +101,7 @@ function ManagerJobs() {
 
       <div className="mt-4 flex justify-end">
         <button className="bg-black text-white py-2 px-4 rounded">
-          Add new job
+          افزودن فرصت جدید
         </button>
       </div>
     </div>

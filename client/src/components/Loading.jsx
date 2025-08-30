@@ -1,7 +1,7 @@
 import React from "react";
 
 function Loading() {
-  return <div>Loading</div>;
+  return <div>در حال بارگذاری...</div>;
 }
 
 export default Loading;

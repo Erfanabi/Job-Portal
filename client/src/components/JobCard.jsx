@@ -35,7 +35,7 @@ function JobCard({ job }) {
             scrollTo(0, 0);
           }}
         >
-          Apply now
+          مشاهده
         </button>
         <button
           className="text-gray-500 border border-gray-500 rounded px-4 py-2"
@@ -44,7 +44,7 @@ function JobCard({ job }) {
             scrollTo(0, 0);
           }}
         >
-          Learn more
+          جزئیات بیشتر
         </button>
       </div>
     </div>

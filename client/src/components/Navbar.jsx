@@ -27,10 +27,10 @@ function Navbar() {
 
           {userData ? (
             <div className="flex items-center gap-3">
-              <Link to={"/applications"}>Applied Jobs</Link>
+              <Link to={"/applications"}>درخواست‌های ارسال‌شده</Link>
               <p>|</p>
               <div className="relative group flex items-center gap-3">
-                <p className="max-sm:hidden">Hi, {userData.name}</p>
+                <p className="max-sm:hidden">سلام، {userData.name}</p>
 
                 <div className="">
                   <img
@@ -50,7 +50,7 @@ function Navbar() {
                           navigate("/");
                         }}
                       >
-                        Logout
+                        خروج
                       </li>
                     </ul>
                   </div>
@@ -66,7 +66,7 @@ function Navbar() {
                 className="bg-blue-600 text-white px-6 sm:px-9 py-2 rounded-full"
                 onClick={() => setIsOpen(true)}
               >
-                Login
+                ورود
               </button>
             </div>
           )}
