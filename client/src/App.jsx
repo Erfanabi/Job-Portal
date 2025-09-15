@@ -3,6 +3,8 @@ import "./App.css";
 import ApplyJob from "./pages/ApplyJob";
 import Applications from "./pages/Applications";
 import Home from "./pages/Home";
+import About from "./pages/About";
+import Events from "./pages/Events";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import AddJobs from "./pages/AddJobs";
@@ -24,6 +26,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/apply-job/:id" element={<ApplyJob />} />
           <Route path="/applications" element={<Applications />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/events" element={<Events />} />
 
           {companyToken ? (
             <>

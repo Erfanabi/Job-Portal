@@ -51,7 +51,7 @@ function Navbar() {
           </div>
 
           {/* Main Links */}
-          <div className="flex gap-4 items-center text-sm sm:text-base">
+          <div className="flex gap-6 items-center text-sm sm:text-base">
             <Link to="/" className="hover:text-blue-200 transition">
               خانه
             </Link>
@@ -60,12 +60,6 @@ function Navbar() {
             </Link>
             <Link to="/about" className="hover:text-blue-200 transition">
               درباره انجمن
-            </Link>
-            <Link
-              to="/register"
-              className="bg-white text-blue-800 font-bold px-3 py-1.5 rounded-lg shadow hover:bg-blue-100 transition hidden sm:inline"
-            >
-              ثبت‌نام رویداد
             </Link>
           </div>
 
