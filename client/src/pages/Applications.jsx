@@ -65,10 +65,10 @@ function Applications() {
 
   return (
     <div className="container px-4 min-h-[65vh] 2xl:px-20 mx-auto my-10">
-      <h2 className="text-xl font-semibold">رزومه شما</h2>
+      {/* <h2 className="text-xl font-semibold">رزومه شما</h2> */}
 
       <div className="flex gap-2 mb-7 mt-3">
-        <div className="flex gap-2">
+        {/* <div className="flex gap-2">
           {isEdit ? (
             <>
               <label htmlFor="resumeUpload" className="flex items-center">
@@ -123,7 +123,7 @@ function Applications() {
               </button>
             </>
           )}
-        </div>
+        </div> */}
       </div>
 
       <h2 className="text-xl font-semibold mb-4">فرصت‌های درخواست‌شده</h2>
@@ -131,13 +131,13 @@ function Applications() {
       <table className="min-w-full bg-white border rounded-lg">
         <thead>
           <tr>
-            <th className="py-3 px-4 border-b text-left">انجمن/سازمان</th>
-            <th className="py-3 px-4 border-b text-left">عنوان</th>
-            <th className="py-3 px-4 border-b text-left">مکان</th>
-            <th className="py-3 px-4 border-b text-left max-sm:hidden">
+            <th className="py-3 px-4 border-b text-center">انجمن/سازمان</th>
+            <th className="py-3 px-4 border-b text-center">عنوان</th>
+            <th className="py-3 px-4 border-b text-center">مکان</th>
+            <th className="py-3 px-4 border-b text-center max-sm:hidden">
               تاریخ
             </th>
-            <th className="py-3 px-4 border-b text-left">وضعیت</th>
+            <th className="py-3 px-4 border-b text-center">وضعیت</th>
           </tr>
         </thead>
 
@@ -145,7 +145,7 @@ function Applications() {
           {jobsApplied?.map((job, index) =>
             jobsApplied ? (
               <tr key={index}>
-                <td className="py-3 px-4 border-b flex items-center gap-2">
+                <td className="py-3 px-4 border-b flex items-center text-center gap-2">
                   <img
                     src={
                       job?.jobId?.companyId?.image
@@ -157,14 +157,16 @@ function Applications() {
                   />
                   {job?.jobId?.companyId?.name}
                 </td>
-                <td className="py-3 px-4 border-b">{job?.jobId?.title}</td>
-                <td className="py-3 px-4 border-b max-sm:hidden">
+                <td className="py-3 px-4 text-center border-b">
+                  {job?.jobId?.title}
+                </td>
+                <td className="py-3 px-4 text-center border-b max-sm:hidden">
                   {job?.jobId?.location}
                 </td>
-                <td className="py-3 px-4 border-b max-sm:hidden">
+                <td className="py-3 px-4 text-center border-b max-sm:hidden">
                   {moment(job.date).format("YYYY-MM-DD")}
                 </td>
-                <td className="py-3 px-4 border-b">
+                <td className="py-3 text-center px-4 border-b">
                   <span
                     className={`${
                       job.status === "accepted"

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { manageJobsData } from "../assets/assets";
-import moment from "moment";
+import moment from "moment-jalaali";
 import axios from "axios";
 import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
@@ -79,7 +79,7 @@ function ManagerJobs() {
                 </td>
                 <td className="py-2 px-4 border-b">{job?.title}</td>
                 <td className="py-2 px-4 border-b max-sm:hidden text-center">
-                  {moment(job?.date).format("11")}
+                  {moment(job?.date).format("jYYYY/jMM/jDD")}
                 </td>
                 <td className="py-2 px-4 border-b max-sm:hidden text-center">
                   {job?.location}

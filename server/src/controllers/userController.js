@@ -29,10 +29,13 @@ export const getUserData = async (req, res, next) => {
 export const applyForJob = async (req, res, next) => {
   try {
     const applicantId = req.user.id;
-    const { jobId } = req.body;
+    const { jobId, firstName, lastName, mobile, telegram } = req.body;
 
     if (!jobId) {
       throw createHttpError(400, "شناسه آگهی (jobId) الزامی است.");
+    }
+    if (!firstName || !lastName || !mobile || !telegram) {
+      throw createHttpError(400, "همه فیلدهای اطلاعات متقاضی الزامی هستند.");
     }
 
     // ۱. بررسی اینکه آیا آگهی وجود دارد و فعال است
@@ -57,6 +60,10 @@ export const applyForJob = async (req, res, next) => {
     const newApplication = await JobApplication.create({
       jobId,
       applicantId,
+      firstName,
+      lastName,
+      mobile,
+      telegram,
     });
 
     res.status(201).json({

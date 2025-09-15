@@ -23,6 +23,28 @@ const JobApplicationSchema = new mongoose.Schema(
       default: "pending", // وضعیت پیش‌فرض هنگام ثبت درخواست
     },
 
+    // اطلاعات متقاضی
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    mobile: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    telegram: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
     // می‌توانید فیلدهای دیگری مثل نامه پوششی (Cover Letter) هم اضافه کنید
     // coverLetter: {
     //   type: String,
