@@ -13,9 +13,11 @@ function JobListing() {
   // ?   console.log(Array.from({ length: 4 }));
   // !  [null, null, null, null];
 
+  console.log({ jobs });
+
   return (
     <div className="container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8">
-      <div className="w-full lg:w-1/4 bg-white px-4">
+      {/* <div className="w-full lg:w-1/4 bg-white px-4">
         {isSearches &&
           (searchFilter.title !== "" || searchFilter.location !== "") && (
             <div>
@@ -80,12 +82,13 @@ function JobListing() {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
 
       <section className="w-full lg:w-3/4 text-gray-800 max-lg:px-4">
         <h3 className="font-medium text-3xl py-2" id="job-list">
           جدیدترین فرصت‌ها
         </h3>
+
         <p className="mb-8">فرصت‌ها و اطلاعیه‌های جدید انجمن دانشگاه خیام</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {jobs
@@ -99,9 +102,13 @@ function JobListing() {
           <div className="flex items-center justify-center space-x-2 mt-10">
             <a
               href="#job-list"
-              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
+              onClick={() =>
+                setCurrentPage(
+                  Math.min(currentPage + 1, Math.ceil(jobs.length / 6))
+                )
+              }
             >
-              <img src={assets.left_arrow_icon} alt="" />
+              <img src={assets.right_arrow_icon} alt="" />
             </a>
 
             {Array.from({ length: Math.ceil(jobs.length / 6) }).map(
@@ -123,13 +130,9 @@ function JobListing() {
 
             <a
               href="#job-list"
-              onClick={() =>
-                setCurrentPage(
-                  Math.min(currentPage + 1, Math.ceil(jobs.length / 6))
-                )
-              }
+              onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))}
             >
-              <img src={assets.right_arrow_icon} alt="" />
+              <img src={assets.left_arrow_icon} alt="" />
             </a>
           </div>
         )}

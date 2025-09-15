@@ -60,7 +60,7 @@ function ApplyJob() {
     <div className="min-h-screen flex flex-col py-10 container px-4 2xl:px-20 mx-auto">
       <div className="bg-white text-black rounded-lg w-ful">
         <div className="flex justify-center md:justify-between flex-wrap gap-8 px-14 py-20 mb-6 bg-sky-50 border border-sky-400 rounded-xl">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center gap-x-4">
             <img
               src={
                 JobData?.companyId?.image
@@ -71,16 +71,16 @@ function ApplyJob() {
               alt=""
             />
 
-            <div className="text-center md:text-left text-neutral-700">
+            <div className="text-center md:text-right text-neutral-700">
               <h1 className="text-2xl sm:text-4xl font-medium">
                 {JobData?.title}
               </h1>
 
               <div className="flex flex-row flex-wrap max-md:justify-center gap-y-2 gap-6 items-center text-gray-600 mt-2">
-                <span className="flex items-center gap-1">
+                {/* <span className="flex items-center gap-1">
                   <img src={assets.suitcase_icon} alt="" />
                   {JobData?.companyId?.name}
-                </span>
+                </span> */}
 
                 <span className="flex items-center gap-1">
                   <img src={assets.location_icon} alt="" />
@@ -89,7 +89,7 @@ function ApplyJob() {
 
                 <span className="flex items-center gap-1">
                   <img src={assets.person_icon} alt="" />
-                  {JobData?.level}
+                  {JobData?.category}
                 </span>
 
                 <span className="flex items-center gap-1">

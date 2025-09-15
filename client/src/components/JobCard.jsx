@@ -18,7 +18,7 @@ function JobCard({ job }) {
           {job.location}
         </span>
         <span className="bg-red-50 border border-blue-50 px-4 py-1.5 rounded">
-          {job.level}
+          {job.category}
         </span>
       </div>
 

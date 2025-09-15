@@ -8,7 +8,7 @@ function Home() {
     <div>
       <Hero />
       <JobListing />
-      <AppDownload />
+      {/* <AppDownload /> */}
     </div>
   );
 }

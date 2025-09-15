@@ -51,7 +51,7 @@ function ViewApplications() {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="w-full max-w-4xl bg-white border border-gray-200 max-sm:text-sm">
+      <div className="w-full bg-white border border-gray-200 max-sm:text-sm">
         <table className="min-w-full bg-white border rounded-lg">
           <thead>
             <tr className="border-b">

@@ -3,23 +3,23 @@ import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 
 function Hero() {
-  const { setIsSearch, setSearchFilter } = useContext(AppContext);
+  // const { setIsSearch, setSearchFilter } = useContext(AppContext);
 
   const titleRef = useRef();
   const locationRef = useRef();
 
-  const onSearch = () => {
-    setSearchFilter({
-      title: titleRef.current.value,
-      location: locationRef.current.value,
-    });
+  // const onSearch = () => {
+  //   setSearchFilter({
+  //     title: titleRef.current.value,
+  //     location: locationRef.current.value,
+  //   });
 
-    setIsSearch(true);
-    console.log({
-      title: titleRef.current.value,
-      location: locationRef.current.value,
-    });
-  };
+  //   setIsSearch(true);
+  //   console.log({
+  //     title: titleRef.current.value,
+  //     location: locationRef.current.value,
+  //   });
+  // };
 
   return (
     <div className="container 2xl:px-20 mx-auto my-10">
@@ -32,7 +32,7 @@ function Hero() {
           را اینجا دنبال کنید.
         </p>
 
-        <div className="flex items-center justify-between bg-white rounded text-gray-600 max-w-xl pl-4 mx-4 sm:mx-auto">
+        {/* <div className="flex items-center justify-between bg-white rounded text-gray-600 max-w-xl pl-4 mx-4 sm:mx-auto">
           <div className="flex items-center">
             <img className="h-4 sm:h-5" src={assets.search_icon} alt="" />
             <input
@@ -59,10 +59,10 @@ function Hero() {
           >
             جستجو
           </button>
-        </div>
+        </div> */}
       </div>
 
-      <div className="border border-gray-300 shadow-md mx-2 mt-5 p-6 rounded-md flex">
+      {/* <div className="border border-gray-300 shadow-md mx-2 mt-5 p-6 rounded-md flex">
         <div className="flex justify-center gap-10 lg:gap-16 flex-wrap">
           <p className="font-medium">حامیان ما</p>
 
@@ -73,7 +73,7 @@ function Hero() {
           <img className="h-6" src={assets.amazon_logo} alt="" />
           <img className="h-6" src={assets.adobe_logo} alt="" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

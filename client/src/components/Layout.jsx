@@ -1,17 +1,18 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const Layout = () => {
+  const location = useLocation();
+  const isDashboard = location.pathname.startsWith("/dashboard");
   return (
     <div>
-      <Navbar />
-
+      {!isDashboard && <Navbar />}
       <main>
         <Outlet />
       </main>
-      <Footer />
+      {!isDashboard && <Footer />}
     </div>
   );
 };

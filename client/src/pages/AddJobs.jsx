@@ -83,7 +83,7 @@ function AddJobs() {
           onChange={handleChange}
           className="w-full max-w-lg px-3 py-2 border-2 border-gray-300 rounded focus:border-blue-500 outline-none"
           type="text"
-          placeholder="مثال: برنامه‌نویس React ارشد"
+          // placeholder="مثال: برنامه‌نویس React ارشد"
           required
         />
       </div>
